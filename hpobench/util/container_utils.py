@@ -56,7 +56,7 @@ class BenchmarkDecoder(json.JSONDecoder):
             if __type == 'np.ndarray':
                 return np.array(obj['__items__'])
             if __type == 'np.float':
-                return np.float(obj['__items__'])
+                return float(obj['__items__'])
             if __type == 'np.int':
                 return np.int(obj['__items__'])
             if __type == 'random_state':
