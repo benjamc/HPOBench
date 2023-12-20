@@ -442,6 +442,13 @@ class AbstractBenchmarkClient(metaclass=abc.ABCMeta):
         logger.debug(f'Client: seed_dict {seed_dict}')
         json_str = self.benchmark.get_configuration_space(seed_dict)
 
+        # ConfigSpace serializer expects q to be there
+        cs = json.loads(json_str)
+        for hp in cs["hyperparameters"]:
+            if "q" not in hp:
+                hp["q"] = None
+        json_str = json.dumps(cs)
+
         config_space = csjson.read(json_str)
 
         if seed is not None:
